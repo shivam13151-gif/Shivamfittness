@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="description" content="Shivam Fitness: fitness tools, exercise library, and a private contact form.">
+<title>SHIVAM FITNESS | Transform Your Strength</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+:root{--bg:#0b0b0b;--card:#171717;--accent:#b8ff00;--text:#fff;--muted:#aaa}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+header{position:sticky;top:0;z-index:10;background:#101010;border-bottom:1px solid #292929;padding:15px 7%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.logo{color:var(--accent);font-size:23px;font-weight:900}
+nav{display:flex;flex-wrap:wrap;gap:15px}nav a{color:#fff;text-decoration:none;font-size:13px}nav a:hover{color:var(--accent)}
+.hero{min-height:460px;padding:90px 7%;display:flex;align-items:center;background:linear-gradient(90deg,#080808 10%,#080808df 55%,#08080860),url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=85") center/cover}
+.hero-content{max-width:650px}.tag{color:var(--accent);letter-spacing:3px;font-size:12px;font-weight:bold}
+h1{font-size:clamp(38px,7vw,75px);line-height:1.1;margin:18px 0}h1 span,.highlight{color:var(--accent)}
+.hero p{color:#d0d0d0;max-width:500px}
+.btn{display:inline-block;margin-top:20px;background:var(--accent);color:#101010;padding:12px 22px;border:0;border-radius:5px;text-decoration:none;font-weight:bold;cursor:pointer}
+section{padding:62px 7%;scroll-margin-top:70px}.section-title{font-size:clamp(27px,4vw,40px);margin-bottom:10px}.section-desc{color:var(--muted);margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:var(--card);padding:23px;border:1px solid #292929;border-radius:12px;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-3px);border-color:var(--accent)}.card h3{margin:9px 0}.card p,.small{color:var(--muted);font-size:14px}.icon{font-size:32px}
+label{display:block;margin:13px 0 5px;font-size:14px}
+input,select,textarea{width:100%;padding:12px;margin-top:4px;background:#101010;color:#fff;border:1px solid #414141;border-radius:6px;font:inherit}
+textarea{min-height:110px;resize:vertical}input:focus,select:focus,textarea:focus{outline:1px solid var(--accent)}
+button.btn{width:100%;font-size:15px}.result{display:none;margin-top:16px;padding:14px;background:#242424;border-radius:8px;overflow-wrap:anywhere}
+.result strong{color:var(--accent);font-size:23px}.result p{margin-top:6px}
+.exercise-details{margin-top:10px;padding-left:20px;color:#ccc;font-size:14px}
+.note{border-left:3px solid var(--accent);background:#191919;padding:15px;margin-top:20px;color:#ccc;font-size:13px}
+.contact-card a{color:var(--accent);text-decoration:none;overflow-wrap:anywhere}
+footer{border-top:1px solid #292929;text-align:center;padding:25px 7%;color:var(--muted);font-size:13px}footer strong{color:var(--accent)}
+.form-status{margin-top:12px;color:var(--accent);font-size:14px}
+@media(max-width:600px){header{padding:14px 5%}nav{gap:10px}nav a{font-size:12px}.hero{min-height:410px;padding:60px 6%}section{padding:45px 6%}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">SHIVAM<span style="color:white">FITNESS.</span></div>
+  <nav><a href="#home">Home</a><a href="#tools">BMI Tools</a><a href="#exercises">Exercises</a><a href="#contact">Contact</a></nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="tag">DISCIPLINE • STRENGTH • PROGRESS</div>
+    <h1>BUILD YOUR<br><span>STRONGER SELF.</span></h1>
+    <p>Train smart. Stay consistent. Build healthy habits. Check your measurements and explore exercises with Shivam Fitness.</p>
+    <a href="#tools" class="btn">CHECK YOUR FITNESS →</a>
+  </div>
+</section>
+
+<section id="tools">
+  <h2 class="section-title">Fitness <span class="highlight">Tools</span></h2>
+  <p class="section-desc">BMI calculator and height/weight converters.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="icon">📊</div><h3>BMI Calculator</h3><p>Calculate BMI from height and weight.</p>
+      <label for="bmiHeight">Height (cm)</label><input type="number" id="bmiHeight" min="50" max="250" step=".1" placeholder="e.g. 165">
+      <label for="bmiWeight">Weight (kg)</label><input type="number" id="bmiWeight" min="2" max="500" step=".1" placeholder="e.g. 55">
+      <button class="btn" onclick="calculateBMI()">Calculate BMI</button><div class="result" id="bmiResult" aria-live="polite"></div>
+    </div>
+    <div class="card">
+      <div class="icon">📏</div><h3>Height Converter</h3><p>Convert centimeters to feet/inches and meters.</p>
+      <label for="heightInput">Height (cm)</label><input type="number" id="heightInput" min="30" max="300" step=".1" placeholder="e.g. 170">
+      <button class="btn" onclick="calculateHeight()">Check Height</button><div class="result" id="heightResult" aria-live="polite"></div>
+    </div>
+    <div class="card">
+      <div class="icon">⚖️</div><h3>Weight Converter</h3><p>Convert kilograms to pounds and grams.</p>
+      <label for="weightInput">Weight (kg)</label><input type="number" id="weightInput" min=".1" max="1000" step=".1" placeholder="e.g. 60">
+      <button class="btn" onclick="calculateWeight()">Check Weight</button><div class="result" id="weightResult" aria-live="polite"></div>
+    </div>
+  </div>
+  <div class="note"><strong>Health note:</strong> BMI is only a screening tool. For teenagers, it must be interpreted using age- and sex-specific growth charts; adult BMI categories should not be used to judge a teenager's health.</div>
+</section>
+
+<section id="exercises">
+  <h2 class="section-title">Exercise <span class="highlight">Library</span></h2>
+  <p class="section-desc">Explore exercise ideas for different muscle groups.</p>
+  <div class="grid">
+    <div class="card"><div class="icon">🏋️</div><h3>Chest</h3><p>Build pushing strength.</p><ul class="exercise-details"><li>Wall Push-ups</li><li>Incline Push-ups</li><li>Knee Push-ups</li><li>Standard Push-ups</li></ul></div>
+    <div class="card"><div class="icon">💪</div><h3>Biceps</h3><p>Train arm muscles.</p><ul class="exercise-details"><li>Light Dumbbell Curls</li><li>Hammer Curls</li><li>Resistance Band Curls</li></ul></div>
+    <div class="card"><div class="icon">🔥</div><h3>Triceps</h3><p>Develop arm pushing strength.</p><ul class="exercise-details"><li>Wall Push-ups</li><li>Close-Grip Wall Push-ups</li><li>Light Band Pushdowns</li></ul></div>
+    <div class="card"><div class="icon">🏆</div><h3>Shoulders</h3><p>Improve shoulder control.</p><ul class="exercise-details"><li>Arm Circles</li><li>Light Shoulder Press</li><li>Resistance Band Raises</li></ul></div>
+    <div class="card"><div class="icon">🦍</div><h3>Back</h3><p>Support posture and pulling strength.</p><ul class="exercise-details"><li>Bird Dog</li><li>Resistance Band Rows</li><li>Light Dumbbell Rows</li></ul></div>
+    <div class="card"><div class="icon">🦵</div><h3>Legs</h3><p>Build lower-body strength.</p><ul class="exercise-details"><li>Bodyweight Squats</li><li>Reverse Lunges</li><li>Glute Bridges</li><li>Calf Raises</li></ul></div>
+    <div class="card"><div class="icon">⚡</div><h3>Core</h3><p>Improve core stability.</p><ul class="exercise-details"><li>Dead Bug</li><li>Bird Dog</li><li>Plank</li><li>Modified Side Plank</li></ul></div>
+    <div class="card"><div class="icon">🏃</div><h3>Cardio</h3><p>Improve endurance.</p><ul class="exercise-details"><li>Brisk Walking</li><li>Easy Cycling</li><li>Jogging</li><li>Dance Workouts</li></ul></div>
+    <div class="card"><div class="icon">🧘</div><h3>Warm-up & Mobility</h3><p>Prepare your body for activity.</p><ul class="exercise-details"><li>Marching in Place</li><li>Arm Circles</li><li>Gentle Hip Rotations</li><li>Dynamic Stretches</li></ul></div>
+  </div>
+  <div class="note"><strong>Training tip:</strong> Start with comfortable variations, learn correct technique, and increase difficulty gradually. Stop if you feel pain, dizziness, or unusual shortness of breath.</div>
+</section>
+
+<section id="contact">
+  <h2 class="section-title">Contact <span class="highlight">Us</span></h2>
+  <p class="section-desc">Send a message using the form below. Your personal phone number and email are not displayed on this page.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="icon">✉️</div><h3>Send a Message</h3>
+      <!-- Configure FormSubmit with your email to receive submissions. See README.md. -->
+      <form action="https://formsubmit.co/shivam13151@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New message from Shivam Fitness website">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="">
+        <label for="visitorName">Your name</label><input id="visitorName" type="text" name="name" maxlength="100" required placeholder="Enter your name">
+        <label for="visitorEmail">Your email (optional)</label><input id="visitorEmail" type="email" name="email" maxlength="200" placeholder="you@example.com">
+        <label for="visitorMessage">Message</label><textarea id="visitorMessage" name="message" maxlength="3000" required placeholder="Write your message..."></textarea>
+        <button class="btn" type="submit">SEND MESSAGE</button>
+        <p class="small" style="margin-top:10px">First-time setup required: FormSubmit will email you a confirmation link. See README.md before publishing.</p>
+      </form>
+    </div>
+    <div class="card">
+      <div class="icon">🔒</div><h3>Privacy First</h3>
+      <p>Your phone number and email address are not shown in the website's visible contact section. Visitors can submit a message through the form.</p>
+      <p style="margin-top:12px">The form service processes messages and sends them to the configured email. Do not request passwords, payment details, or other sensitive information.</p>
+      <p class="small" style="margin-top:12px">Instagram profile: <a style="color:var(--accent)" href="https://www.instagram.com/mr_shivam_3796/" target="_blank" rel="noopener noreferrer">@mr_shivam_3796</a></p>
+    </div>
+  </div>
+</section>
+
+<footer><p>© <span id="year"></span> <strong>SHIVAM FITNESS</strong></p><p>Stay Consistent. Stay Strong. Stay Healthy.</p></footer>
+
+<script>
+function num(id){const s=document.getElementById(id).value.trim();return s===""?NaN:Number(s)}
+function show(id,html){const e=document.getElementById(id);e.innerHTML=html;e.style.display="block"}
+function calculateBMI(){
+ const h=num("bmiHeight"),w=num("bmiWeight");
+ if(!Number.isFinite(h)||!Number.isFinite(w)||h<50||h>250||w<2||w>500){show("bmiResult","<p>Please enter a valid height and weight.</p>");return}
+ const bmi=w/((h/100)**2);
+ show("bmiResult",`<p>Your BMI</p><strong>${bmi.toFixed(1)}</strong><p>This number alone cannot determine health. Teenagers need age- and sex-specific growth-chart interpretation.</p>`)
+}
+function calculateHeight(){
+ const h=num("heightInput");
+ if(!Number.isFinite(h)||h<30||h>300){show("heightResult","<p>Please enter a valid height in cm.</p>");return}
+ const inches=h/2.54,feet=Math.floor(inches/12),rem=inches-feet*12;
+ show("heightResult",`<p>Centimeters</p><strong>${h.toFixed(1)} cm</strong><p>Meters: ${(h/100).toFixed(2)} m</p><p>Feet & inches: ${feet} ft ${rem.toFixed(1)} in</p>`)
+}
+function calculateWeight(){
+ const w=num("weightInput");
+ if(!Number.isFinite(w)||w<=0||w>1000){show("weightResult","<p>Please enter a valid weight in kg.</p>");return}
+ show("weightResult",`<p>Kilograms</p><strong>${w.toFixed(1)} kg</strong><p>Pounds: ${(w*2.20462).toFixed(2)} lb</p><p>Grams: ${(w*1000).toFixed(0)} g</p>`)
+}
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
